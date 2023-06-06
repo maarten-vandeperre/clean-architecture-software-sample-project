@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15.3-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=knative_demo
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./db-init-scripts/postgres:/docker-entrypoint-initdb.d
+  mongo:
+    ports:
+      - '27017:27017'
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    image: mongo:4.2.24
+volumes:
+  postgres:
+    driver: local
