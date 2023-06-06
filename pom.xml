@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.redhat.demo</groupId>
-    <artifactId>knative-demo-person-address-service</artifactId>
+    <artifactId>clean-architecture-software-sample-project</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -205,6 +205,7 @@
             </activation>
             <modules>
                 <module>application/configuration/monolith-configuration-quarkus</module>
+                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -230,6 +231,7 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-account-configuration</module>
+                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -256,6 +258,7 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-person-configuration</module>
+                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -281,6 +284,7 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-address-configuration</module>
+                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -309,6 +313,7 @@
                 <module>application/configuration/microservice-person-configuration</module>
                 <module>application/configuration/microservice-account-configuration</module>
                 <module>application/configuration/monolith-configuration-quarkus</module>
+                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
