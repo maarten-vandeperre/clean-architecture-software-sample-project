@@ -71,9 +71,13 @@ Over here you have the "glue", the wiring of your application and its layers: wh
 Often this comes down to Spring or SpringBoot for legacy applications or Quarkus for CloudNative applications. In our example project we have multiple subconfigurations: 
 we started with a monolith (in Quarkus and SpringBoot), and then gradually extracted microservices from the monolith. These microservices are then serverless served. 
 If you're interested in how you would break down the monolith into microservices in a step-by-step flow, check out [this Voxxed Days talk](https://www.youtube.com/watch?v=ekkwMIMVA2Y) about decomposing the monolith with Knative
-(as in the real world, you often don't have the time and especially not the budget to always rewrite applications from scratch).
+(as in the real world, you often don't have the time and especially not the budget to always rewrite applications from scratch). By having an explicit read and write 
+model in the domain layer, I've less need to introduce presenters. Otherwise, this would as well be the location where you could implement presenters, mapping domain models 
+to e.g., REST resources.
 
 + see if it mathers for quarkus uberjar
+
+This results in a slightly different drawing on how I implement clean architecture.
 
 ![Clean Architecture - Onion layer - My opinion](images/clean_architecture_my_opinion.jpg "Clean Architecture - Onion layer - My opinion")
 
