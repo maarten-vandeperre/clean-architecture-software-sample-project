@@ -27,11 +27,6 @@
     </dependency>
     <dependency>
       <groupId>com.redhat.demo</groupId>
-      <artifactId>quarkus-configurations</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.redhat.demo</groupId>
       <artifactId>infrastructure-dataproviders-inmemory-v1</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>

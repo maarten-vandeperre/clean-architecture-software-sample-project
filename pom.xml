@@ -57,6 +57,8 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                    <meminitial>4096m</meminitial>
+                    <maxmem>8192m</maxmem>
                 </configuration>
             </plugin>
             <plugin>
@@ -205,7 +207,6 @@
             </activation>
             <modules>
                 <module>application/configuration/monolith-configuration-quarkus</module>
-                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -231,7 +232,6 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-account-configuration</module>
-                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -258,7 +258,6 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-person-configuration</module>
-                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -284,7 +283,6 @@
             </activation>
             <modules>
                 <module>application/configuration/microservice-address-configuration</module>
-                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
@@ -313,7 +311,6 @@
                 <module>application/configuration/microservice-person-configuration</module>
                 <module>application/configuration/microservice-account-configuration</module>
                 <module>application/configuration/monolith-configuration-quarkus</module>
-                <module>application/configuration/shared/quarkus-configurations</module>
                 <module>application/core/domain/v1</module>
                 <module>application/core/usecases/v1</module>
                 <module>application/infrastructure/dataproviders/core-dataprovider</module>
