@@ -7,8 +7,9 @@ As I really advise to read the book, this repository is a very brief summary of 
 I will use this setup to make it fairly easy to evaluate/compare Spring Boot with Quarkus and to extract microservices or serverless functions from a monolith. In the next 
 section I will share my view on clean architecture and map it on the example project that you can find under /application
 
-
+<center>
 ![Clean Architecture - Book](images/clean_architecture_book.jpg "Clean Architecture - Book")
+</center>
 
 The way I would summarize clean architecture is to keep your options open and to reduce the risks on regression. By keeping your options open, I mean that you can 
 fall in love with a library, a database technology, ..., but you should never marry with it. You should be able to fairly easy change, add or remove libraries, 
