@@ -23,12 +23,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
         ),
         license = License(
             name = "Apache 2.0",
-            url = "https://www.apache.org/licenses/LICENSE-2.0.html")
+            url = "https://www.apache.org/licenses/LICENSE-2.0.html"
+        )
     )
 )
 @SpringBootApplication
-open class MonolithApplication //FIXME this class should only be open to enable Spring....
-
-fun main(args: Array<String>) {
-    SpringApplication.run(MonolithApplication::class.java, *args)
+open class MonolithApplication { //FIXME this class should only be open to enable Spring....
+    companion object {
+        fun main(args: Array<String>) {
+            SpringApplication.run(MonolithApplication::class.java, *args)
+        }
+    }
 }
