@@ -2,6 +2,22 @@
 This repository contains a sample project that demonstrates the principles of clean architecture in software development. 
 Clean architecture emphasizes the separation of concerns and the independence of the business logic from the frameworks and technologies used in the application.
 
+## Table of contents
+1. [Purpose](#purpose)
+2. [Clean Architecture - Why?](#clean-architecture---why)
+3. [Project Structure](#project-structure)
+4. [Clean Architecture - My interpretation](#clean-architecture---my-interpretation)
+    1. [Core - Domain & usecases](#core---domain--usecases)
+    2. [Infrastructure - dataproviders & others](#infrastructure---dataproviders--others)
+    3. [Entrypoints (REST, GraphQL, gRPC, ...)](#entrypoints--rest-graphql-grpc--)
+    4. [Configuration(s)](#configuration--s-)
+5. [Project setup](#project-setup)
+6. [Comparing/Evaluating Quarkus and Spring Boot](#comparingevaluating-quarkus-and-spring-boot)
+7. [Knative versus AWS Lambda and Azure Functions](#knative-versus-aws-lambda-and-azure-functions)
+8. [Possible pitfalls](#possible-pitfalls)
+9. [General remarks](#general-remarks)
+10. [Contributing](#contributing)
+
 ## Purpose 
 The purpose of this project is to provide developers with a practical example of how clean architecture can be implemented in a real-world scenario. 
 By examining the code and structure of this sample project, developers can gain a better understanding of the key concepts and patterns involved in clean architecture.
@@ -149,7 +165,10 @@ Within the project, there are multiple implementations of data providers, which 
 The applications are represented by various configurations, where the necessary components are wired together. Additionally, the project setup includes support for multiversioning. 
 To provide a visual representation, the project setup can be depicted as follows:
 ![Clean Architecture - Project setup](images/application_code_base.jpg "Clean Architecture - Project setup")
+
+
 Or as a Maven project:
+
 ![Clean Architecture - Project setup - Maven](images/project_setup.png "Clean Architecture - Project setup - Maven")
 
 ## Comparing/Evaluating Quarkus and Spring Boot
@@ -187,16 +206,17 @@ resides within the core layer as a vendor-agnostic component. This means that yo
 changes in the core layer. The modifications would only be needed in the infrastructure layer. Therefore, this approach aligns with the principles of Clean Architecture.
 ![Knative versus AWS Lambda and Azure Functions](images/serverless.jpg "Knative versus AWS Lambda and Azure Functions")
 
-## Contributing
-Contributions to this sample project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, please feel free to submit a pull request. 
-Make sure to follow the project's coding conventions and provide clear commit messages.
-
 ## Possible pitfalls 
+TODO
 
 ## General remarks
 * Use cases: the validation itself is done quick-and-dirty as it's not the main focus of this repository. It can be cleaner: Feel free to reach out on how I do this most of the time.
 * Domain entity naming: can be cleaner as well. 
 * REST handling: can be cleaner too. E.g., using 204s on creation, ....
+
+## Contributing
+Contributions to this sample project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, please feel free to submit a pull request.
+Make sure to follow the project's coding conventions and provide clear commit messages.
 
 ## WIP
 
