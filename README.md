@@ -194,16 +194,13 @@ Make sure to follow the project's coding conventions and provide clear commit me
 ## Possible pitfalls 
 
 ## General remarks
-
+* Use cases: the validation itself is done quick-and-dirty as it's not the main focus of this repository. It can be cleaner: Feel free to reach out on how I do this most of the time.
+* Domain entity naming: can be cleaner as well. 
+* REST handling: can be cleaner too. E.g., using 204s on creation, ....
 
 ## WIP
-TODO extend README
 
 
-
-usecases => validation ugly
-naming domain => ugly
-no created status, but just ref
 DRY
 startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -Pmonolith
 startup ./mvnw compile -Dquarkus.profile=in-memory quarkus:dev -Pmonolith
