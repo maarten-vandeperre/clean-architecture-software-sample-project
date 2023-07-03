@@ -7,13 +7,16 @@ The purpose of this project is to provide developers with a practical example of
 By examining the code and structure of this sample project, developers can gain a better understanding of the key concepts and patterns involved in clean architecture.
 
 ## Clean Architecture - Why?
-Nowadays, the IT landscape is swamped with huge amounts of libraries, technologies, frameworks and platforms you can use. What's the holy grail today, 
-is outdated tomorrow. What's not existing today, is tomorrow's holy grail. Clean Architecture will come with principles as SOLID and Domain Driven Design
-and enforce most of it via module structuring at compile time. Be aware: not everything can be enforced at compile time. By following these principles, 
-you can design software while postponing library/infrastructure/... choices until the end of your project development, instead of having to choose it at 
-the beginning and be stuck with it. It as well allows you to change libraries/infrastructure/... fairly easy, so it can help you by creating software that 
-can withstand the test of time (i.e., software that doesn't need to be rewritten from scratch every x years, or worst case, every x months).
-**Why Clean Architecture?** Keep your options open and allow your platform or application to withstand the test of time.
+These days, the IT world is flooded with an overwhelming number of libraries, technologies, frameworks, and platforms to choose from. 
+What's considered the ultimate solution today may become outdated tomorrow. What doesn't exist today might become tomorrow's ultimate solution. 
+Clean Architecture incorporates principles like SOLID and Domain Driven Design and enforces them through module structuring during compilation. 
+However, it's important to note that not everything can be enforced at compile time. 
+
+By embracing these principles, you can design software without getting tied down to specific 
+libraries, infrastructure, or other choices right from the start of your project. Instead, you can postpone those decisions until later in the development process. 
+This approach also makes it easier to switch libraries or infrastructure if needed, enabling you to create software that can stand the test of time. With Clean Architecture, 
+you can keep your options open and ensure that your platform or application remains robust and adaptable in the long run.
+**Why Clean Architecture?** Keep your options open and allow your platform or application to endure over time.
 
 ## Project Structure
 The project is organized into multiple modules, each representing a distinct layer of the clean architecture (see later). The following modules are included:
@@ -22,81 +25,109 @@ The project is organized into multiple modules, each representing a distinct lay
 * **Application**: The application module contains the implementation of the use cases defined in the domain layer. 
 It serves as the intermediary layer between the domain and infrastructure layers.
 * **Infrastructure**: The infrastructure module deals with the technical implementation details, such as data persistence, external APIs, and frameworks. 
-It depends on the domain layer but is independent of other modules.
+It depends on the domain layer but is independent of other modules. 
 
 ## Clean Architecture - My interpretation
-The clean architecture concepts I will talk about, are concepts I took/learned from the book "Clean Architecture - A Craftsman's Guide to Software Structure and Design (Robert C. Martin Series)".
-As I really advise to read the book, this repository is a very brief summary of what the main concepts are about and an example implementation in Kotlin. 
-I will use this setup to make it fairly easy to evaluate/compare Spring Boot with Quarkus and to extract microservices or serverless functions from a monolith. In the next 
-section I will share my view on clean architecture and map it on the example project that you can find under /application
+The clean architecture concepts I'll be discussing are ideas I've learned from the book "Clean Architecture - A Craftsman's Guide to Software Structure and 
+Design (Robert C. Martin Series)." I highly recommend reading the book as it provides a comprehensive understanding of these concepts. 
+This repository serves as a condensed summary of the main ideas and includes a Kotlin implementation example. I've designed this setup to facilitate easy evaluation and 
+comparison between Spring Boot and Quarkus, as well as to demonstrate the process of extracting microservices or serverless functions from a monolithic application. 
+In the following section, I'll share my perspective on clean architecture and apply it to the example project located in the /application directory.
 
 
 ![Clean Architecture - Book](images/clean_architecture_book.jpg "Clean Architecture - Book")
 
-The way I would summarize clean architecture is to keep your options open and to reduce the risks on regression. By keeping your options open, I mean that you can 
-fall in love with a library, a database technology, ..., but you should never marry with it. You should be able to fairly easy change, add or remove libraries, 
-databases, infrastructural components, .... On the "reduce risks on regression" part, clean architecture introduces usecases instead of services. This is violating 
-the "don't repeat yourself" (i.e., DRY) principles a little bit (most of it depends on the real implementation) by isolating code to just the user actions. E.g.,
-instead of having a person service with "create person", "update email", "changeAddress", .... methods, which are sharing some shared private methods, "CreatePersonUseCase",
-"UpdatePersonEmailUseCase", "ChangePersonAddressUseCase", ... classes are created without reuse of code. In this simple example this seems overkill, but the advantage 
-of this way of working (especially in more complex scenarios) is that the risk on regression is limited to the user actions you're developing/enhancing/editing: 
-Changing the "CreatePersonUseCase" will not affect the "UpdatePersonEmailUseCase", reducing the risk of regression on parts where you don't expect it. As in the end,
-every piece of code you touch, can get broken. Clean architecture enforces this by stepping away from the "lasagna layered approach" that service oriented architecture
-was (controller layer - service layer - database layer) and introducing an onion layered approach (see image).
+To summarize clean architecture, it's about keeping your options open and minimizing regression risks. When I say "keeping your options open," 
+it means that you can definitely be fond of a library, database technology, or any other component, but you shouldn't commit to it for life.
+You should have the flexibility to easily swap, add, or remove libraries, databases, and other infrastructure elements.
+
+Now, let's talk about reducing regression risks. Clean architecture introduces the concept of use cases instead of services. 
+This may seem like a slight violation of the "don't repeat yourself" (DRY) principle, depending on the actual implementation, 
+because code is isolated based on user actions. For instance, instead of having a person service with methods like "create person", "update email",
+and "change address" (which may share some private methods), we create separate classes like "CreatePersonUseCase", "UpdatePersonEmailUseCase", and "ChangePersonAddressUseCase" 
+without code reuse. In a simple example, this might seem like overkill, but in more complex scenarios, this approach has its advantages. 
+It limits the risk of regression to the specific user actions you're working on. If you modify the "CreatePersonUseCase", it won't impact the "UpdatePersonEmailUseCase", 
+reducing the chances of unexpected regression. 
+
+Remember, any code you touch can potentially break. Clean architecture enforces this idea by moving away from the traditional "lasagna layered approach" of service-oriented architecture 
+(controller layer, service layer, database layer) and embracing an onion layered approach (see the image).
+
 ![Clean Architecture - Onion layer](images/clean_architecture.jpg "Clean Architecture - Onion layer")
 ### Core - Domain & usecases
-The first layer I will talk about, is the center of the application stack: the core layer. Sometimes this layer is even split in domain (i.e., data classes, POJOs)
-and usecases (i.e., the business logic). This is the layer that will contain all the business logic and is bound to an important rule: within the core layer, no 
-external (or even internal developed) libraries or dependencies should be used. The only dependency which is allowed over here is the programming language (i.e., Kotlin 
-in our case). When developing in plain Java, one other library is open for discussion: Lombok. As this is a library which generates classes and works at compile time, 
-it can be allowed in the core layer (i.e., if you want to remove it, you can by replacing the annotated classes with the generated ones). Does this then mean 
-that you can't use external libraries? No, you can (and should, do not reinvent the wheel): but you'll have to inject them via interfaces. Database access and other 
-infrastructure related code has to follow the same rules as for the external libraries: no implementations in the core, only inject it in the core via interfaces. 
-Important aspect over here: even though file bases access is natively enabled in Java and Kotlin itself, it should not be part of the core layer and injected via interfaces 
-from an infrastructure module.
-One last rule, that I believe is important: Changes in clean architecture should only propagate from the inside to the outer layers, not the other way around. So a change in infrastructure 
-should never trigger a change in the core layer.
+Let's dive into the first layer, the heart of the application stack: the core layer. Sometimes, this layer is even divided into two parts: 
+the domain (which includes data classes and POJOs) and the use cases (which house the business logic). This layer holds all the essential business logic and follows a crucial rule: 
+it should not rely on any external libraries or dependencies, whether they're developed internally or externally. The only allowed dependency here is the programming language itself 
+(in our case, Kotlin). If you're working with plain Java, there's one library that can be up for discussion: Lombok. Since Lombok generates classes at compile time, it can be permitted 
+in the core layer. You can easily remove it by replacing the annotated classes with the generated ones if needed.
+
+But does this mean you can't use external libraries at all? Not at all! In fact, you should embrace them (no need to reinvent the wheel), 
+but they should be injected into the core layer through interfaces. The same rules apply to database access and other infrastructure-related code: 
+no implementations should reside in the core layer, only interfaces for injection.
+
+Here's an important point: although Java and Kotlin natively support file-based access, it should not be part of the core layer. 
+Instead, it should be injected via interfaces from an infrastructure module.
+
+Lastly, there's a crucial rule that I believe holds significance: changes in clean architecture should only propagate from the inner layers to the outer layers, not the other way around. 
+In other words, a change in the infrastructure layer should never trigger a change in the core layer.
 #### Domain
-This is the module that contains the data classes. Both write and read models are residating over here. Although it can be as well that you only have your write model over here 
-and that you define the read model on controller level (i.e., in the configuration layer) and map on it via presenters. As I fetch the data via usecases as well, I go for having 
-the write and the read model in the domain layer.
+This module houses the data classes, encompassing both the write and read models. However, it's also possible to have only the write model in this module and define the read model at the controller level (in the configuration layer). 
+In such cases, you can map the read model using presenters. Personally, since I also retrieve data through use cases (i.e., security validation is for me a part of the core layer), 
+I prefer to have both the write and read models in the domain layer.
 #### usecases
-These classes contain the business logic and can be mapped on "commands" from domain driven design. As the business logic is now infrastructure and dependency independent, 
-it should be fairly easy to let it withstand the test of time: the layers around it make it (as you'll see in the example application) fairly easy to change infrastructural components 
-and/or libraries without having to touch the core/business logic, resulting less in "we don't dare to touch it", which is killing innovation. One discussion point in this section is what 
-to do with read methods. You can as well opt/argue for having repositories wired in the (e.g., REST) controllers and mapped on read models via presenters, but I prefer having read commands 
-implemented via usecases to. You can implement some aggregations on this level and/or security is part of the core layer as well (to my opinion). It's for that the domain layer contains 
-read and write data models and that the usecases cover creation, editing, deletion and read operations. 
-Another principle I use within the usecase layer, is that every interface that will provide data is called a "repository", even if the real implementation would be HTTP based, like REST.
-Reason to do so, and to not call it a "xClient" is that this would bring infrastructure logic implicitly in the core layer: when you would extract a microservice from within a monolith, a core 
-interface would be renamed from "xRepository" to "xClient" then. Changes in the core layer when changing infrastructure are not allowed, hence everything that provides data, is a "Repository" for me.
+These classes encapsulate the core business logic and can be aligned with the concept of "commands" in domain-driven design. By making the business logic independent of 
+infrastructure and dependencies, we ensure its resilience over time. The layered structure surrounding the core logic, as demonstrated in the example application, 
+makes it relatively straightforward to modify infrastructural components or libraries without the need to modify the core/business logic. This approach reduces the hesitation 
+to make changes and encourages innovation.
+
+In this section, we come across a discussion point regarding the handling of read operations. One option is to wire repositories directly into (e.g., REST) 
+controllers and map them to read models using presenters. However, personally, I prefer implementing read operations through use cases as well. This allows for implementing 
+aggregations or incorporating security within the core layer. Thus, the domain layer contains both read and write data models, and the use cases cover operations such as creation, 
+editing, deletion, and reading. 
+
+Another principle I adhere to in the use case layer is naming any interface that provides data as a "repository," even if the actual implementation is HTTP-based, such as REST. 
+This approach avoids implicitly introducing infrastructure logic into the core layer. For instance, when extracting a microservice from a monolith, a core interface would be renamed 
+from "xRepository" to "xClient." I believe that changes in the core layer should be avoided when modifying infrastructure, and therefore, any data provider is considered a "repository" 
+in my approach.
 ### Infrastructure - dataproviders & others
-Within the infrastructure layer you implement the connections with infrastructural components (like the name already described). Often you have a submodule per technology or component.
-This will make it easier to perform updates, changes or replacements.
+In the infrastructure layer, we handle the implementation of connections with various infrastructural components, as the name suggests. Typically, we organize this layer into submodules 
+based on different technologies or components. This modular approach simplifies the process of performing updates, making changes, or replacing specific components.
 #### dataproviders
-The dataproviders layer often maps only on database access. To my understanding, this can be database **and** API access: E.g., calling another service's REST API would be 
-a dataproviders module as well. Reason behind it: you use a dataprovider to fetch data. If the data is coming from database or an external service, that does not matter. 
-E.g., you have a monolith with person and address data. If you extract the address data into a separate microservice, the dataprovider for address data switched from being 
-a database implementation to a REST/GraphQL implementation. In my opinion, that should not result in having to move the submodule to another parent module.
+The dataproviders layer primarily focuses on mapping database access. However, from my understanding, it can also encompass API access. For instance, 
+if you're calling a REST API of another service, that would also fall under the dataproviders module. The rationale behind this is that a dataprovider's purpose is to retrieve data, 
+regardless of whether it originates from a database or an external service.
+
+To illustrate further, let's consider a scenario where you have a monolith containing both person and address data. If you decide to extract the address data into a separate 
+microservice, the dataprovider responsible for fetching address data would transition from a database implementation to a REST/GraphQL implementation. 
+In my view, this change should not necessitate moving the submodule to a different parent module.
+
+Every technology has its own submodule in which the related dependencies are managed and maintained. E.g., a Postgres submodule should not change when a MySQL or MongoDB version changes.
 ### Entrypoints (REST, GraphQL, gRPC, ...)
-There are implementation of clean architecture that have a separate layer/module within the infrastructure layer for exposing endpoints (i.e., REST, GraphQL, gRPC, ....). 
-I am not doing this for the following reason: it is the configuration layer that will decide on what functionality is getting exposed, so it is the responsability of the 
-configuration to define the endpoints. E.g., if you have person and address data REST APIs in a monolith (i.e., see the example application) and you would like to extract a 
-microservice/serverless function next to it and they would share an "endpoints" submodule, then the person data REST endpoints would as well be exposed on the address microservice, 
-which is not the purpose. So in my examples, my understanding, exposing endpoints are not a part of the infrastructure layer, but part of the configuration layer. 
-An extra added value of developing like this: the exposing of the endpoints is often framework dependent (e.g., SpringBoot, Quarkus, ...). By moving this to the configuration layer, 
-your infrastructure layer is unaware of the choice you've made in the configuration layer and you don't have to touch it when interchanging SpringBoot with Quarkus or the other 
-way around. **Changes in clean architecture should only propagate from the inside to the outer layers, not the other way around.**
+Some implementations of clean architecture include a separate layer or module within the infrastructure layer specifically for exposing endpoints, such as REST, GraphQL, gRPC, 
+and others. However, I have chosen not to follow this approach for the following reason: the responsibility of defining the exposed functionality lies with the configuration layer, 
+not the infrastructure layer.
+
+To illustrate, let's consider an example where a monolith has REST APIs for person and address data. If we were to extract a microservice or serverless function alongside it and 
+they both shared an "endpoints" submodule, the person data REST endpoints would unintentionally be exposed on the address microservice. This is not the intended purpose. 
+Therefore, in my examples, I consider exposing endpoints as part of the configuration layer rather than the infrastructure layer.
+
+An additional benefit of this approach is that the act of exposing endpoints often depends on the chosen framework, such as Spring Boot or Quarkus.
+By placing this responsibility in the configuration layer, the infrastructure layer remains unaware of the specific choices made in the configuration layer. 
+Thus, when transitioning between frameworks like Spring Boot and Quarkus, the infrastructure layer remains untouched. As a guiding principle of clean architecture states, 
+**changes should only propagate from the inside to the outer layers, not the other way around.**
 #### Others
 As infrastructure is quite generic, other submodules can be part of this section: e.g., thinking about file system access.
 ### Configuration(s)
-Over here you have the "glue", the wiring of your application and its layers: which infrastructure to use, which usecases, which endpoints your exposing and in which technology, .... 
-Often this comes down to Spring or SpringBoot for legacy applications or Quarkus for CloudNative applications. In our example project we have multiple subconfigurations: 
-we started with a monolith (in Quarkus and SpringBoot), and then gradually extracted microservices from the monolith. These microservices are then serverless served. 
-If you're interested in how you would break down the monolith into microservices in a step-by-step flow, check out [this Voxxed Days talk](https://www.youtube.com/watch?v=ekkwMIMVA2Y) about decomposing the monolith with Knative
-(as in the real world, you often don't have the time and especially not the budget to always rewrite applications from scratch). By having an explicit read and write 
-model in the domain layer, I've less need to introduce presenters. Otherwise, this would as well be the location where you could implement presenters, mapping domain models 
-to e.g., REST resources.
+Here, in this section, we have the "glue" that connects and wires the different layers of our application. 
+It involves making decisions about the infrastructure to use, selecting use cases, determining which endpoints to expose, and choosing the appropriate technologies.
+In many cases, this boils down to using Spring or Spring Boot for legacy applications or Quarkus for CloudNative applications.
+
+In our example project, we have multiple subconfigurations. Initially, we started with a monolith built on Quarkus and Spring Boot. 
+Then, gradually, we extracted microservices from the monolith, which are now served in a serverless manner. If you're interested in learning how to break down a monolith 
+into microservices in a step-by-step fashion, you can check out [this Voxxed Days talk](https://www.youtube.com/watch?v=ekkwMIMVA2Y) on decomposing the monolith with Knative 
+(as in the real world, rewriting applications from scratch is often not feasible due to time and budget constraints).
+
+By explicitly defining separate read and write models in the domain layer, I have minimized the need for introducing presenters. 
+However, if required, this layer could also be the place to implement presenters, which facilitate the mapping of domain models to resources like REST endpoints.
 
 + see if it matters for quarkus uberjar
 
@@ -111,26 +142,35 @@ This results in a slightly different drawing on how I implement clean architectu
 TODO
 
 ## Extract (Knative) microservices (Quarkus) from monolith (Spring Boot)
-At the beginning of your project, you often don't know (and you should not know it upfront) if you would optimize with serverless functions or not.
-What you can do, is start a clean architecture based monolith or miniservice, deploy it, test it, and if needed, optimize it by exposing it serverless 
-if it seems to be an added value. Within the sample project, you can have a look: the monolith (i.e., monolith-configuration-springboot) is split into 
-three microservices (i.e., account, address and person service). These can be served serverless or as a default Kubernetes deployment. Notice that only 
-the configuration modules differ: usecases and dataproviders modules are reused. If you now would like to split the READ operations to the default way 
-of hosting and the CREATE/UPDATE/DELETE operations via serverless, you can even split the configuration classes further. Notice that this can be done within 
-a short time frame, so clean architecture allows you to perform this **after** the main project is written **and** when you see added value in splitting it.
-Next to that, you can as well use such a setup to make your testing life easier: run integration tests on the monolith, so that you don't have to worry about 
-orchestration locally, go with mini- or microservices to a test environment on which you can run end-to-end testing (i.e., regression testing) and later on 
-again, if needed) split it even further down and extend it with serverless functionality.
+At the start of a project, it's often uncertain (and it's actually preferable not to know upfront) whether serverless optimization will be necessary. 
+What you can do is begin with a clean architecture-based monolith or mini-service, deploy it, test it, and then, if required, optimize it by leveraging serverless functionality 
+if it proves to be advantageous.
 
+In the sample project, you can observe this approach. The initial monolith (i.e., monolith-configuration-springboot) is divided into three microservices 
+(i.e., account, address, and person services). These microservices can be served in a serverless manner or as standard Kubernetes deployments. It's important to note that the 
+configuration modules are the only components that differ, while the use cases and data providers modules are reused.
+
+If you wish to separate the READ operations to the default hosting method and handle the CREATE/UPDATE/DELETE operations via serverless, you can further divide the configuration classes. 
+This separation can be accomplished within a relatively short timeframe. Clean architecture allows you to make these adjustments **after** the main project has been developed, 
+**when** you identify the added value in splitting it.
+
+Furthermore, this setup can simplify your testing process. You can run integration tests on the monolith, alleviating the need for local orchestration concerns. 
+Then, you can transition to mini- or microservices in a test environment for end-to-end testing (i.e., regression testing). Finally, if necessary, you can further partition 
+the system and incorporate serverless functionality.
+
+Overall, clean architecture provides flexibility to adapt and optimize your application architecture as you progress, rather than having to make all these decisions upfront.
 ## Knative versus AWS Lambda and Azure Functions
-When you say "serverless", you often think about Knative, AWS Lambda, Azure Functions (and the Google alternative, but for the sake of ease, this is left out 
-in this text). You then see these as alternatives for each other. But are they truly alternatives of each other? In my opinion, focused on Clean Architecture, 
-they're not: Knative lives in the Kubernetes landscape and could be seen as within the "core" layer of your platform (here the platform/infrastructure becomes 
-the variant of an application in the Clean Architecture model). The AWS Lambdas, Azure Functions, ... are playing on the infra side of the platform and are 
-highly optimized to play with their file storage, triggers, .... How I would map these then on a Clean Architecture based architecture is by going back to the 
-onion layer we saw before (see image below): AWS Lambda, Azure Functions, ... injected into the core, and being part of the infrastructure/dataproviders layer and Knative in the 
-core as a vendor-agnostic core layer: you can shift it to on prem, from AWS to Google, from Google to Azure, ..., in the core layer, no changes would be required, 
-only in the infrastructure layer: hence, were compliant with the Clean Architecture philosophy.
+When discussing "serverless," the common associations are Knative, AWS Lambda, Azure Functions (and the Google alternative, although not mentioned here for simplicity).
+These technologies are often perceived as alternatives to one another. However, from a Clean Architecture perspective, I don't consider them as direct alternatives.
+
+In my view, focused on Clean Architecture principles, Knative exists within the Kubernetes ecosystem and can be seen as part of the "core" layer of your platform. 
+Here, the platform/infrastructure itself becomes a variant of an application within the Clean Architecture model. On the other hand, AWS Lambdas, Azure Functions, 
+and similar technologies operate on the infrastructure side of the platform. They are specifically optimized to work with file storage, triggers, and other related functionalities.
+
+To map these serverless technologies to a Clean Architecture-based architecture, I revert to the onion layer concept we previously discussed (see image below). 
+AWS Lambda, Azure Functions, and similar solutions are injected into the core layer, becoming part of the infrastructure/data providers layer. Knative, on the other hand, 
+resides within the core layer as a vendor-agnostic component. This means that you can shift it from on-premises to AWS, from AWS to Google, or from Google to Azure without requiring 
+changes in the core layer. The modifications would only be needed in the infrastructure layer. Therefore, this approach aligns with the principles of Clean Architecture.
 ![Knative versus AWS Lambda and Azure Functions](images/serverless.jpg "Knative versus AWS Lambda and Azure Functions")
 
 ## Contributing
