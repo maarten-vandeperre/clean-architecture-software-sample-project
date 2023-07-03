@@ -68,7 +68,10 @@ Here's an important point: although Java and Kotlin natively support file-based 
 Instead, it should be injected via interfaces from an infrastructure module.
 
 Lastly, there's a crucial rule that I believe holds significance: changes in clean architecture should only propagate from the inner layers to the outer layers, not the other way around. 
-In other words, a change in the infrastructure layer should never trigger a change in the core layer.
+In other words, **a change in the infrastructure layer should never trigger a change in the core layer** (see image below).
+
+![Clean Architecture - Onion layer dependencies](images/clean_architecture_dependencies.jpg "Clean Architecture - Onion layer dependencies")
+
 #### Domain
 This module houses the data classes, encompassing both the write and read models. However, it's also possible to have only the write model in this module and define the read model at the controller level (in the configuration layer). 
 In such cases, you can map the read model using presenters. Personally, since I also retrieve data through use cases (i.e., security validation is for me a part of the core layer), 
@@ -129,13 +132,14 @@ into microservices in a step-by-step fashion, you can check out [this Voxxed Day
 By explicitly defining separate read and write models in the domain layer, I have minimized the need for introducing presenters. 
 However, if required, this layer could also be the place to implement presenters, which facilitate the mapping of domain models to resources like REST endpoints.
 
-+ see if it matters for quarkus uberjar
++ TODO see if it matters for quarkus uberjar
 
 This results in a slightly different drawing on how I implement clean architecture.
 
 ![Clean Architecture - Onion layer - My opinion](images/clean_architecture_my_opinion.jpg "Clean Architecture - Onion layer - My opinion")
 
 ## Project setup 
+TODO
 ![Clean Architecture - Project setup](images/application_code_base.jpg "Clean Architecture - Project setup")
 
 ## Comparing/Evaluating Quarkus and Spring Boot
