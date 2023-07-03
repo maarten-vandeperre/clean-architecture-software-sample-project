@@ -1,5 +1,10 @@
 # clean-architecture-software-sample-project
-Example implementation of clean architecture (with regards to the software development itself). 
+This repository contains a sample project that demonstrates the principles of clean architecture in software development. 
+Clean architecture emphasizes the separation of concerns and the independence of the business logic from the frameworks and technologies used in the application.
+
+## Purpose 
+The purpose of this project is to provide developers with a practical example of how clean architecture can be implemented in a real-world scenario. 
+By examining the code and structure of this sample project, developers can gain a better understanding of the key concepts and patterns involved in clean architecture.
 
 ## Clean Architecture - Why?
 Nowadays, the IT landscape is swamped with huge amounts of libraries, technologies, frameworks and platforms you can use. What's the holy grail today, 
@@ -9,6 +14,15 @@ you can design software while postponing library/infrastructure/... choices unti
 the beginning and be stuck with it. It as well allows you to change libraries/infrastructure/... fairly easy, so it can help you by creating software that 
 can withstand the test of time (i.e., software that doesn't need to be rewritten from scratch every x years, or worst case, every x months).
 **Why Clean Architecture?** Keep your options open and allow your platform or application to withstand the test of time.
+
+## Project Structure
+The project is organized into multiple modules, each representing a distinct layer of the clean architecture (see later). The following modules are included:
+
+* **Domain**: This module contains the core business entities, use cases, and interfaces. It represents the innermost layer of the application, encapsulating the business logic.
+* **Application**: The application module contains the implementation of the use cases defined in the domain layer. 
+It serves as the intermediary layer between the domain and infrastructure layers.
+* **Infrastructure**: The infrastructure module deals with the technical implementation details, such as data persistence, external APIs, and frameworks. 
+It depends on the domain layer but is independent of other modules.
 
 ## Clean Architecture - My interpretation
 The clean architecture concepts I will talk about, are concepts I took/learned from the book "Clean Architecture - A Craftsman's Guide to Software Structure and Design (Robert C. Martin Series)".
@@ -118,6 +132,12 @@ onion layer we saw before (see image below): AWS Lambda, Azure Functions, ... in
 core as a vendor-agnostic core layer: you can shift it to on prem, from AWS to Google, from Google to Azure, ..., in the core layer, no changes would be required, 
 only in the infrastructure layer: hence, were compliant with the Clean Architecture philosophy.
 ![Knative versus AWS Lambda and Azure Functions](images/serverless.jpg "Knative versus AWS Lambda and Azure Functions")
+
+## Contributing
+Contributions to this sample project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, please feel free to submit a pull request. 
+Make sure to follow the project's coding conventions and provide clear commit messages.
+
+
 
 ## WIP
 TODO extend README
