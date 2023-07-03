@@ -144,8 +144,12 @@ This results in a slightly different drawing on how I implement clean architectu
 ![Clean Architecture - Onion layer - My opinion](images/clean_architecture_my_opinion.jpg "Clean Architecture - Onion layer - My opinion")
 
 ## Project setup 
-TODO
+The project setup is straightforward and can be summarized as follows: it comprises a core layer that is divided into domain and use cases. 
+Within the project, there are multiple implementations of data providers, which are connected to the applications that utilize them. 
+The applications are represented by various configurations, where the necessary components are wired together. Additionally, the project setup includes support for multiversioning. 
+To provide a visual representation, the project setup can be depicted as follows:
 ![Clean Architecture - Project setup](images/application_code_base.jpg "Clean Architecture - Project setup")
+Or as a Maven project:
 ![Clean Architecture - Project setup - Maven](images/project_setup.png "Clean Architecture - Project setup - Maven")
 
 ## Comparing/Evaluating Quarkus and Spring Boot
@@ -187,6 +191,9 @@ changes in the core layer. The modifications would only be needed in the infrast
 Contributions to this sample project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, please feel free to submit a pull request. 
 Make sure to follow the project's coding conventions and provide clear commit messages.
 
+## Possible pitfalls 
+
+## General remarks
 
 
 ## WIP
