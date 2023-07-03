@@ -7,16 +7,23 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <properties>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <kotlin.version>1.8.10</kotlin.version>
+        <kotlin.version>1.8.22</kotlin.version>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.0.3.Final</quarkus.platform.version>
-        <spring.platform.version>3.1.0</spring.platform.version>
+        <spring.platform.version>3.1.1</spring.platform.version>
         <spring.openapi.version>2.1.0</spring.openapi.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.0.0</surefire-plugin.version>
@@ -33,6 +40,11 @@
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
                 <version>3.12.13</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-reflect</artifactId>
+                <version>${kotlin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -65,20 +77,20 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>compile</id>-->
+<!--                        <goals>-->
+<!--                            <goal>compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>test-compile</id>-->
+<!--                        <goals>-->
+<!--                            <goal>test-compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
@@ -86,18 +98,18 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
-                <configuration>
-                    <javaParameters>true</javaParameters>
-                    <jvmTarget>17</jvmTarget>
-                    <compilerPlugins>
-                        <plugin>all-open</plugin>
-                    </compilerPlugins>
-                    <pluginOptions>
-                        <option>all-open:annotation=jakarta.ws.rs.Path</option>
-                        <option>all-open:annotation=jakarta.enterprise.context.ApplicationScoped</option>
-                        <option>all-open:annotation=io.quarkus.test.junit.QuarkusTest</option>
-                    </pluginOptions>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <javaParameters>true</javaParameters>-->
+<!--                    <jvmTarget>17</jvmTarget>-->
+<!--                    <compilerPlugins>-->
+<!--                        <plugin>all-open</plugin>-->
+<!--                    </compilerPlugins>-->
+<!--                    <pluginOptions>-->
+<!--                        <option>all-open:annotation=jakarta.ws.rs.Path</option>-->
+<!--                        <option>all-open:annotation=jakarta.enterprise.context.ApplicationScoped</option>-->
+<!--                        <option>all-open:annotation=io.quarkus.test.junit.QuarkusTest</option>-->
+<!--                    </pluginOptions>-->
+<!--                </configuration>-->
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -132,33 +144,33 @@
 
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>${quarkus.platform.group-id}</groupId>
-                    <artifactId>quarkus-maven-plugin</artifactId>
-                    <version>${quarkus.platform.version}</version>
-                    <extensions>true</extensions>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>build</goal>
-                                <goal>generate-code</goal>
-                                <goal>generate-code-tests</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.platform.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>${quarkus.platform.group-id}</groupId>-->
+<!--                    <artifactId>quarkus-maven-plugin</artifactId>-->
+<!--                    <version>${quarkus.platform.version}</version>-->
+<!--                    <extensions>true</extensions>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>build</goal>-->
+<!--                                <goal>generate-code</goal>-->
+<!--                                <goal>generate-code-tests</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                    <version>${spring.platform.version}</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>repackage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>

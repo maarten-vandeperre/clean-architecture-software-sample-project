@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.info.Contact
 import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.info.License
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 
 
 @OpenAPIDefinition(
@@ -29,9 +29,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 )
 @SpringBootApplication
 open class MonolithApplication { //FIXME this class should only be open to enable Spring....
-    companion object {
-        fun main(args: Array<String>) {
-            SpringApplication.run(MonolithApplication::class.java, *args)
-        }
-    }
+}
+
+fun main(args: Array<String>) {
+    runApplication<MonolithApplication>(*args)
 }
