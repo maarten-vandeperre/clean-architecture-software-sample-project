@@ -104,6 +104,11 @@ microservice, the dataprovider responsible for fetching address data would trans
 In my view, this change should not necessitate moving the submodule to a different parent module.
 
 Every technology has its own submodule in which the related dependencies are managed and maintained. E.g., a Postgres submodule should not change when a MySQL or MongoDB version changes.
+See image below: we have 4 different data sources; an in-memory database, Postgres and MongoDB database implementation for all or a subset of the repositories defined in the 
+use cases layer. Next to that, we have an implementation to fetch address data from an already extracted address microservice (API) in the address-api-dataproviders submodule. 
+The latest then would contain a REST client, while the others are database implementations.
+
+![Clean Architecture - Data providers](images/dataproviders.png "Clean Architecture - Data providers")
 ### Entrypoints (REST, GraphQL, gRPC, ...)
 Some implementations of clean architecture include a separate layer or module within the infrastructure layer specifically for exposing endpoints, such as REST, GraphQL, gRPC, 
 and others. However, I have chosen not to follow this approach for the following reason: the responsibility of defining the exposed functionality lies with the configuration layer, 
@@ -141,6 +146,7 @@ This results in a slightly different drawing on how I implement clean architectu
 ## Project setup 
 TODO
 ![Clean Architecture - Project setup](images/application_code_base.jpg "Clean Architecture - Project setup")
+![Clean Architecture - Project setup - Maven](images/project_setup.png "Clean Architecture - Project setup - Maven")
 
 ## Comparing/Evaluating Quarkus and Spring Boot
 TODO
