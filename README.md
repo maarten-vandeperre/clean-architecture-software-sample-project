@@ -215,6 +215,18 @@ In order to get it build, scripts are provided under /scripts.
    docker image ls | grep my-registry
    ```
   ![Clean Architecture - Docker images](images/docker_image_list.png "Clean Architecture - Docker images")
+  You now can use the provided docker compose file to start all the services (!check if the versions/tags are the same)
+  ```shell
+    docker compose -f docker-compose-build-services.yaml up
+    
+    # check that the services are up and running
+    curl http://localhost:8081/api/people
+    curl http://localhost:8082/api/people
+    curl http://localhost:8083/api/people
+    curl http://localhost:8084/api/people
+    curl http://localhost:8085/api/addresses
+    curl http://localhost:8086/api/accounts
+  ```
 
 
 ## Extract (Knative) microservices (Quarkus) from monolith (Spring Boot)
@@ -235,6 +247,7 @@ Then, you can transition to mini- or microservices in a test environment for end
 the system and incorporate serverless functionality.
 
 Overall, clean architecture provides flexibility to adapt and optimize your application architecture as you progress, rather than having to make all these decisions upfront.
+
 ## Knative versus AWS Lambda and Azure Functions
 When discussing "serverless," the common associations are Knative, AWS Lambda, Azure Functions (and the Google alternative, although not mentioned here for simplicity).
 These technologies are often perceived as alternatives to one another. However, from a Clean Architecture perspective, I don't consider them as direct alternatives.
