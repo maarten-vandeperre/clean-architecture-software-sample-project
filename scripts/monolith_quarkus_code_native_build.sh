@@ -28,7 +28,7 @@ echo "${GREEN}##################################################################
         -Dquarkus.container-image.build=true \
         -Dquarkus.container-image.image=$CONTAINER_IMAGE \
         -Dquarkus.native.native-image-xmx=5G \
-        -am -Pmonolith-quarkus,quarkus-native -pl application/configuration/monolith-configuration-quarkus
+        -am -Pmonolith-quarkus,quarkus-native
 
 echo "${GREEN}\n\n\n##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}"
