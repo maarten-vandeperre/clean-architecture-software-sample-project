@@ -175,6 +175,12 @@
                 <skipITs>false</skipITs>
                 <quarkus.package.type>native</quarkus.package.type>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-container-image-jib</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>monolith-springboot</id>
