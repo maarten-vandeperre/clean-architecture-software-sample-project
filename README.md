@@ -271,7 +271,12 @@ changes in the core layer. The modifications would only be needed in the infrast
 ![Knative versus AWS Lambda and Azure Functions](images/serverless.jpg "Knative versus AWS Lambda and Azure Functions")
 
 ## Possible pitfalls 
-TODO
+### Adding one or more libraries in the core
+E.g., adding Spring or Quarkus libraries in the core layer: never do this! Keep as well logging libraries out of the core layer: inject them via interfaces.
+### Implicit dependencies in the core
+E.g., using file system access via native functions in the programming language. although you don't need an external library for it, you'll bind your core 
+code to infrastructural decisions, which should be avoided. Another example is the naming of xClient and xRepository in the core layer, which indicates if it 
+concerns an HTTP request or a databse call. This as well is infrastructure leaking into your core layer.
 
 ## General remarks
 * Use cases: the validation itself is done quick-and-dirty as it's not the main focus of this repository. It can be cleaner: Feel free to reach out on how I do this most of the time.
