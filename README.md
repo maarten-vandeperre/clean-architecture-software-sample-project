@@ -12,7 +12,7 @@ Clean architecture emphasizes the separation of concerns and the independence of
     3. [Entrypoints (REST, GraphQL, gRPC, ...)](#entrypoints--rest-graphql-grpc--)
     4. [Configuration(s)](#configuration--s-)
 5. [Project setup](#project-setup)
-6. [Comparing/Evaluating Quarkus and Spring Boot](#comparingevaluating-quarkus-and-spring-boot)
+6. [Comparing/Evaluating Quarkus and Spring Boot](#comparingevaluating-quarkus-and-spring-boot) **=> !!contains the build commands**
 7. [Knative versus AWS Lambda and Azure Functions](#knative-versus-aws-lambda-and-azure-functions)
 8. [Possible pitfalls](#possible-pitfalls)
 9. [General remarks](#general-remarks)
