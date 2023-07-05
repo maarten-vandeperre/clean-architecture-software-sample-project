@@ -153,8 +153,6 @@ into microservices in a step-by-step fashion, you can check out [this Voxxed Day
 By explicitly defining separate read and write models in the domain layer, I have minimized the need for introducing presenters. 
 However, if required, this layer could also be the place to implement presenters, which facilitate the mapping of domain models to resources like REST endpoints.
 
-+ TODO see if it matters for quarkus uberjar
-
 This results in a slightly different drawing on how I implement clean architecture.
 
 ![Clean Architecture - Onion layer - My opinion](images/clean_architecture_my_opinion.jpg "Clean Architecture - Onion layer - My opinion")
@@ -172,7 +170,52 @@ Or as a Maven project:
 ![Clean Architecture - Project setup - Maven](images/project_setup.png "Clean Architecture - Project setup - Maven")
 
 ## Comparing/Evaluating Quarkus and Spring Boot
-TODO
+If you want to play with Quarkus and/or Spring Boot, then I have created some configuration modules (i.e., applications) (see [Project setup](#project-setup)). 
+Important to notice, is that both monoliths (i.e., the Quarkus one and the Spring Boot one) should be the same (except the underlying runtime), so these can be 
+used to evaluate how hard it is to step away from Spring Boot towards Quarkus.
+
+In order to get it build, scripts are provided under /scripts.
+* **monolith_springboot_code_build.sh**  
+  _This will build a docker image for the Spring Boot based monolith._
+   ```shell
+   sh scripts/monolith_springboot_code_build.sh
+   ```
+* **monolith_quarkus_code_build.sh**
+  _This will build a docker image for the Quarkus based monolith. This is not a native image, but an OpenJDK based image with the Quarkus fat jar added._
+   ```shell
+   sh scripts/monolith_quarkus_code_build.sh
+   ```
+* **monolith_quarkus_code_native_build.sh**  
+  _This will build a docker image for the Quarkus based monolith. This is the native image build (be aware that this can fale on Apple M1 chip sets) of the monolith._
+   ```shell
+   sh scripts/monolith_quarkus_code_native_build.sh
+   ```
+* **microservice_person_quarkus_code_native_build.sh**  
+  _This will build a docker image for the person microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
+   ```shell
+   sh scripts/microservice_person_quarkus_code_native_build.sh
+   ```
+* **microservice_address_quarkus_code_native_build.sh**  
+  _This will build a docker image for the address microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
+   ```shell
+   sh scripts/microservice_address_quarkus_code_native_build.sh
+   ```
+* **microservice_account_quarkus_code_native_build.sh**  
+  _This will build a docker image for the account microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
+   ```shell
+   sh scripts/microservice_account_quarkus_code_native_build.sh
+   ```
+* **build_all_container_images.sh**  
+  _This will run all previous mentioned shell scripts. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
+   ```shell
+   sh scripts/build_all_container_images.sh
+   ```
+  _If everything went well, the following command should result in the following docker images being created:_
+   ```shell
+   docker image ls | grep my-registry
+   ```
+  ![Clean Architecture - Docker images](images/docker_image_list.png "Clean Architecture - Docker images")
+
 
 ## Extract (Knative) microservices (Quarkus) from monolith (Spring Boot)
 At the start of a project, it's often uncertain (and it's actually preferable not to know upfront) whether serverless optimization will be necessary. 
@@ -217,25 +260,3 @@ TODO
 ## Contributing
 Contributions to this sample project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, please feel free to submit a pull request.
 Make sure to follow the project's coding conventions and provide clear commit messages.
-
-## WIP
-
-
-DRY
-startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -Pmonolith
-startup ./mvnw compile -Dquarkus.profile=in-memory quarkus:dev -Pmonolith
-startup ./mvnw compile -Dquarkus.profile=db-postgres quarkus:dev -microservice-account
-
-
-Spring Boot multi module start : mvn spring-boot:run -Pmonolith-springboot -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=inmemory" -pl application/configuration/monolith-configuration-springboot
-
-
-
-http://localhost:8080/q/graphql-ui/?
-
-
-
-
-TODO Save usecase ==> work with interfaces
-
-Clean arch : withstand test of time, keep your options open
