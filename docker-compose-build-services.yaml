@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  monolith-spring-boot:
+    image: my-registry/my-project/monolith-springboot:0.0.1-SNAPSHOT
+    ports:
+      - '8081:8080'
+    environment:
+      SPRING_PROFILES_ACTIVE: inmemory
+  monolith-quarkus:
+    image: my-registry/my-project/monolith-quarkus:0.0.1-SNAPSHOT
+    ports:
+      - '8082:8080'
+    environment:
+      QUARKUS_PROFILE: db-in-memory
+  monolith-quarkus-native:
+    image: my-registry/my-project/monolith-quarkus-native:0.0.1-SNAPSHOT
+    ports:
+      - '8083:8080'
+    environment:
+      QUARKUS_PROFILE: db-in-memory
+  microservice-person:
+    image: my-registry/my-project/microservice-person-quarkus-native:0.0.1-SNAPSHOT
+    ports:
+      - '8084:8080'
+    environment:
+      QUARKUS_PROFILE: db-in-memory
+  microservice-address:
+    image: my-registry/my-project/microservice-address-quarkus-native:0.0.1-SNAPSHOT
+    ports:
+      - '8085:8080'
+    environment:
+      QUARKUS_PROFILE: db-in-memory
+  microservice-account:
+    image: my-registry/my-project/microservice-account-quarkus-native:0.0.1-SNAPSHOT
+    ports:
+      - '8086:8080'
+    environment:
+      QUARKUS_PROFILE: db-in-memory
