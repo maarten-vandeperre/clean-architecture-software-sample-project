@@ -27,12 +27,12 @@ services:
   microservice-address:
     image: my-registry/my-project/microservice-address-quarkus-native:0.0.1-SNAPSHOT
     ports:
-      - '8085:8084'
+      - '8085:8082'
     environment:
       QUARKUS_PROFILE: db-in-memory
   microservice-account:
     image: my-registry/my-project/microservice-account-quarkus-native:0.0.1-SNAPSHOT
     ports:
-      - '8086:8085'
+      - '8086:8081'
     environment:
       QUARKUS_PROFILE: db-in-memory

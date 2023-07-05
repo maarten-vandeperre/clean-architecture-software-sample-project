@@ -36,7 +36,7 @@ echo "${GREEN}############################### End Build ########################
 echo "${GREEN}##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n"
     echo "Container Image: ${BLUE}$CONTAINER_IMAGE${NC}"
-    echo "Example run command: ${BLUE}docker run -p 8085:8084 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
+    echo "Example run command: ${BLUE}docker run -p 8085:8082 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
     echo "Test command (when started): ${BLUE}curl http://localhost:8085/api/addresses${NC}"
 
 echo "${GREEN}\n##########################################################################################${NC}"
