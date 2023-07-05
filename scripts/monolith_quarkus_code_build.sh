@@ -27,7 +27,7 @@ echo "${GREEN}##################################################################
 echo "${GREEN}############################### Start Container Build ####################################${NC}"
 echo "${GREEN}##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n\n\n"
-    podman build -t $CONTAINER_IMAGE \
+    docker build -t $CONTAINER_IMAGE \
         -f application/configuration/monolith-configuration-quarkus/src/main/container/ContainerImageDefinition \
         ./application/configuration/monolith-configuration-quarkus
 
@@ -37,7 +37,7 @@ echo "${GREEN}############################### End Build ########################
 echo "${GREEN}##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n"
     echo "Container Image: ${BLUE}$CONTAINER_IMAGE${NC}"
-    echo "Example run command: ${BLUE}podman run -p 8082:8080 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
+    echo "Example run command: ${BLUE}docker run -p 8082:8080 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
     echo "Test command (when started): ${BLUE}curl http://localhost:8082/api/people${NC}"
 
 echo "${GREEN}\n##########################################################################################${NC}"

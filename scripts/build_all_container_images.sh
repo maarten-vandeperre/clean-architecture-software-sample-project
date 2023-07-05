@@ -1,0 +1,7 @@
+#!/bin/sh
+sh scripts/monolith_springboot_code_build.sh
+sh scripts/monolith_quarkus_code_build.sh
+sh scripts/monolith_quarkus_code_native_build.sh
+sh scripts/microservice_person_quarkus_code_native_build.sh
+sh scripts/microservice_address_quarkus_code_native_build.sh
+sh scripts/microservice_account_quarkus_code_native_build.sh
