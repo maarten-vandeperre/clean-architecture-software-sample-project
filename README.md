@@ -205,28 +205,36 @@ In order to get it build, scripts are provided under /scripts.
    ```shell
    sh scripts/microservice_account_quarkus_code_native_build.sh
    ```
-* **build_all_container_images.sh**  
-  _This will run all previous mentioned shell scripts. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
-   ```shell
-   sh scripts/build_all_container_images.sh
-   ```
-  _If everything went well, the following command should result in the following docker images being created:_
-   ```shell
-   docker image ls | grep my-registry
-   ```
-  ![Clean Architecture - Docker images](images/docker_image_list.png "Clean Architecture - Docker images")
-  You now can use the provided docker compose file to start all the services (!check if the versions/tags are the same)
-  ```shell
-    docker compose -f docker-compose-build-services.yaml up
+  * **build_all_container_images.sh**  
+    _This will run all previous mentioned shell scripts. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
+     ```shell
+     sh scripts/build_all_container_images.sh
+     ```
+    _If everything went well, the following command should result in the following docker images being created:_
+     ```shell
+     docker image ls | grep my-registry
+     ```
+    ![Clean Architecture - Docker images](images/docker_image_list.png "Clean Architecture - Docker images")
+    You now can use the provided docker compose file to start all the services (!check if the versions/tags are the same)
+    ```shell
+      docker compose -f docker-compose-build-services.yaml up
     
-    # check that the services are up and running
-    curl http://localhost:8081/api/people
-    curl http://localhost:8082/api/people
-    curl http://localhost:8083/api/people
-    curl http://localhost:8084/api/people
-    curl http://localhost:8085/api/addresses
-    curl http://localhost:8086/api/accounts
-  ```
+      # check that the services are up and running
+      curl http://localhost:8081/api/people
+      curl http://localhost:8082/api/people
+      curl http://localhost:8083/api/people
+      curl http://localhost:8084/api/people
+      curl http://localhost:8085/api/addresses
+      curl http://localhost:8086/api/accounts
+    ```
+    **Notice already the difference in startup times (even on this small sample application)**
+    * Quarkus native: 0.027s
+      ![Clean Architecture - Quarkus native startup](images/quarkus-native-startup.png "Clean Architecture - Quarkus native startup")
+    * Quarkus fat jar: 1.450s
+      ![Clean Architecture - Quarkus fatjar startup](images/quarkus-native-startup.png "Clean Architecture - Quarkus fatjar startup")
+    * Spring Boot: 2.749s
+      ![Clean Architecture - Spring Boot startup](images/quarkus-native-startup.png "Clean Architecture - Spring Boot startup")
+
 
 
 ## Extract (Knative) microservices (Quarkus) from monolith (Spring Boot)
