@@ -11,6 +11,7 @@ Clean architecture emphasizes the separation of concerns and the independence of
     2. [Infrastructure - dataproviders & others](#infrastructure---dataproviders--others)
     3. [Entrypoints (REST, GraphQL, gRPC, ...)](#entrypoints--rest-graphql-grpc--)
     4. [Configuration(s)](#configuration--s-)
+    5. [Generic functionality](#generic-functionality) 
 5. [Project setup](#project-setup)
 6. [Comparing/Evaluating Quarkus and Spring Boot](#comparingevaluating-quarkus-and-spring-boot) **=> !!contains the build commands**
 7. [Knative versus AWS Lambda and Azure Functions](#knative-versus-aws-lambda-and-azure-functions)
@@ -156,6 +157,22 @@ However, if required, this layer could also be the place to implement presenters
 This results in a slightly different drawing on how I implement clean architecture.
 
 ![Clean Architecture - Onion layer - My opinion](images/clean_architecture_my_opinion.jpg "Clean Architecture - Onion layer - My opinion")
+
+### Generic functionality
+You will always find duplicated code fragments when e.g., working with use cases. It then is the art to not fall into the trap of starting service oriented 
+architectures within your use case oriented approach. It also is worthwhile considering if you have accidental or real duplication: when the use cases get extended,
+will the duplicated code change in the same way or can it diverge? If it can diverge, it is still better to isolate the code in separated use cases, to avoid
+regression. In some cases, you can have real duplication, like in mapping to a response entity. Then these duplicated code fragments can be put away in shared/generic 
+functions. An important rule of thumb is to have these reusable methods as static, standalone and stateless functions (i.e., utility methods).
+As an example, you can check the "ResponseMapping" implementation class (i.e., Kotlin object) in the Quarkus monolith application. In case you go for a more functional approach,
+instead of using try-catch, you could opt for using Kotlin extension functions on top of the use case response. _In a real world implementation, I would go for a 
+ExecutionResult response object, containing or the resulting data or the validation, server, ... errors that occurred during processing of the request, rather than 
+working with try-catch._
+
+On use case level, there is one scenario that can often lead to "duplicated code", being the create and update use case. This can be solved with inheritance, adapter pattern or 
+with the introduction of the "save use case", which expects a valid external reference (id) or otherwise creates one. You already feel/see the "or" statement, 
+so depending on how hard you want to stick with the clean architecture principles, it's maybe cleaner to stick with inheritance or the adapter pattern, where the edit use case is an extension 
+or a wrapper around the create use case, validating the given external reference (id).
 
 ## Project setup 
 The project setup is straightforward and can be summarized as follows: it comprises a core layer that is divided into domain and use cases. 
