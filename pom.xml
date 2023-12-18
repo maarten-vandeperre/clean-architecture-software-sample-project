@@ -8,17 +8,19 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <kotlin.version>1.8.22</kotlin.version>
+        <kotlin.version>1.9.21</kotlin.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.0.3.Final</quarkus.platform.version>
-        <spring.platform.version>3.1.1</spring.platform.version>
-        <spring.openapi.version>2.1.0</spring.openapi.version>
+        <quarkus.platform.version>3.6.3</quarkus.platform.version>
+        <spring.platform.version>3.2.0</spring.platform.version>
+        <spring.openapi.version>2.3.0</spring.openapi.version>
+        <postgres.version>42.7.1</postgres.version>
+        <mongo.version>3.12.14</mongo.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.0.0</surefire-plugin.version>
     </properties>
@@ -28,12 +30,12 @@
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>42.6.0</version>
+                <version>${postgres.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
-                <version>3.12.14</version>
+                <version>${mongo.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
