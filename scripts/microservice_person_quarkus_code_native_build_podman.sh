@@ -24,10 +24,10 @@ echo "${GREEN}##################################################################
     ./mvnw clean -T 10C package \
         -Dquarkus.package.type=native \
         -Dquarkus.native.container-build=true \
-        -Dquarkus.native.container-runtime=docker \
+        -Dquarkus.native.container-runtime=podman \
         -Dquarkus.container-image.build=true \
         -Dquarkus.container-image.image=$CONTAINER_IMAGE \
-        -Dquarkus.native.native-image-xmx=5G \
+        -Dquarkus.native.native-image-xmx=10G \
         -am -Pmicroservice-person,quarkus-native
 
 echo "${GREEN}\n\n\n##########################################################################################${NC}"
@@ -36,7 +36,7 @@ echo "${GREEN}############################### End Build ########################
 echo "${GREEN}##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n"
     echo "Container Image: ${BLUE}$CONTAINER_IMAGE${NC}"
-    echo "Example run command: ${BLUE}docker run -p 8084:8083 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
+    echo "Example run command: ${BLUE}podman run -p 8084:8083 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
     echo "Test command (when started): ${BLUE}curl http://localhost:8084/api/people${NC}"
 
 echo "${GREEN}\n##########################################################################################${NC}"

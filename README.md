@@ -13,7 +13,7 @@ Clean architecture emphasizes the separation of concerns and the independence of
     4. [Configuration(s)](#configuration--s-)
     5. [Generic functionality](#generic-functionality) 
 5. [Project setup](#project-setup)
-6. [Comparing/Evaluating Quarkus and Spring Boot](#comparingevaluating-quarkus-and-spring-boot) **=> !!contains the build commands**
+6. [Comparing/Evaluating Quarkus and Spring Boot - Podman and Docker](#comparingevaluating-quarkus-and-spring-boot---podman-and-docker) **=> !!contains the build commands**
 7. [Knative versus AWS Lambda and Azure Functions](#knative-versus-aws-lambda-and-azure-functions)
 8. [Possible pitfalls](#possible-pitfalls)
 9. [General remarks](#general-remarks)
@@ -186,10 +186,13 @@ Or as a Maven project:
 
 ![Clean Architecture - Project setup - Maven](images/project_setup.png "Clean Architecture - Project setup - Maven")
 
-## Comparing/Evaluating Quarkus and Spring Boot
+## Comparing/Evaluating Quarkus and Spring Boot - Podman and Docker
 If you want to play with Quarkus and/or Spring Boot, then I have created some configuration modules (i.e., applications) (see [Project setup](#project-setup)). 
 Important to notice, is that both monoliths (i.e., the Quarkus one and the Spring Boot one) should be the same (except the underlying runtime), so these can be 
 used to evaluate how hard it is to step away from Spring Boot towards Quarkus.
+
+Next to the Spring Boot and Quarkus evaluation, you can use this repository as well to compare Docker and [Podman](https://podman.io/) container tools.
+For both container tools, I have implemented build scripts under the /scripts folder.
 
 In order to get it build, scripts are provided under /scripts.
 * **monolith_springboot_code_build.sh**  
@@ -205,22 +208,26 @@ In order to get it build, scripts are provided under /scripts.
 * **monolith_quarkus_code_native_build.sh**  
   _This will build a docker image for the Quarkus based monolith. This is the native image build (be aware that this can fale on Apple M1 chip sets) of the monolith._
    ```shell
-   sh scripts/monolith_quarkus_code_native_build.sh
+   sh scripts/monolith_quarkus_code_native_build_docker.sh # docker based build
+   sh scripts/monolith_quarkus_code_native_build_podman.sh # podman based build
    ```
 * **microservice_person_quarkus_code_native_build.sh**  
   _This will build a docker image for the person microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
    ```shell
-   sh scripts/microservice_person_quarkus_code_native_build.sh
+   sh scripts/microservice_person_quarkus_code_native_build_docker.sh # docker based build
+   sh scripts/microservice_person_quarkus_code_native_build_podman.sh # podman based build
    ```
 * **microservice_address_quarkus_code_native_build.sh**  
   _This will build a docker image for the address microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
    ```shell
-   sh scripts/microservice_address_quarkus_code_native_build.sh
+   sh scripts/microservice_address_quarkus_code_native_build_docker.sh # docker based build
+   sh scripts/microservice_address_quarkus_code_native_build_podman.sh # podman based build
    ```
 * **microservice_account_quarkus_code_native_build.sh**  
   _This will build a docker image for the account microservice, extracted from the monolith. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
    ```shell
-   sh scripts/microservice_account_quarkus_code_native_build.sh
+   sh scripts/microservice_account_quarkus_code_native_build_docker.sh # docker based build
+   sh scripts/microservice_account_quarkus_code_native_build_podman.sh # podman based build
    ```
   * **build_all_container_images.sh**  
     _This will run all previous mentioned shell scripts. This is a native image build (be aware that this can fale on Apple M1 chip sets)._
@@ -245,7 +252,7 @@ In order to get it build, scripts are provided under /scripts.
       curl http://localhost:8086/api/accounts
     ```
     **Notice already the difference in startup times (even on this small sample application)**
-    * Quarkus native: 0.027s
+    * Quarkus native: 0.009s
       ![Clean Architecture - Quarkus native startup](images/quarkus-native-startup.png "Clean Architecture - Quarkus native startup")
     * Quarkus fat jar: 1.450s
       ![Clean Architecture - Quarkus fatjar startup](images/quarkus-native-startup.png "Clean Architecture - Quarkus fatjar startup")

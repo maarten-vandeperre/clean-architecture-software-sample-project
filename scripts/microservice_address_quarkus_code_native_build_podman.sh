@@ -6,7 +6,7 @@ DARK_GREY='\033[0;30m'
 NC='\033[0m' # No Color
 
     VERSION=$(cat environment/.version) #version of the application
-    CONTAINER_IMAGE="my-registry/my-project/microservice-account-quarkus-native:$VERSION"
+    CONTAINER_IMAGE="my-registry/my-project/microservice-address-quarkus-native:$VERSION"
 
 
 echo "${GREEN}\n\n\n##########################################################################################${NC}"
@@ -24,11 +24,11 @@ echo "${GREEN}##################################################################
     ./mvnw clean -T 10C package \
         -Dquarkus.package.type=native \
         -Dquarkus.native.container-build=true \
-        -Dquarkus.native.container-runtime=docker \
+        -Dquarkus.native.container-runtime=podman \
         -Dquarkus.container-image.build=true \
         -Dquarkus.container-image.image=$CONTAINER_IMAGE \
-        -Dquarkus.native.native-image-xmx=5G \
-        -am -Pmicroservice-account,quarkus-native
+        -Dquarkus.native.native-image-xmx=10G \
+        -am -Pmicroservice-address,quarkus-native
 
 echo "${GREEN}\n\n\n##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}"
@@ -36,8 +36,8 @@ echo "${GREEN}############################### End Build ########################
 echo "${GREEN}##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n"
     echo "Container Image: ${BLUE}$CONTAINER_IMAGE${NC}"
-    echo "Example run command: ${BLUE}docker run -p 8086:8081 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
-    echo "Test command (when started): ${BLUE}curl http://localhost:8086/api/accounts${NC}"
+    echo "Example run command: ${BLUE}podman run -p 8085:8082 -e \"QUARKUS_PROFILE=db-in-memory\" $CONTAINER_IMAGE${NC}"
+    echo "Test command (when started): ${BLUE}curl http://localhost:8085/api/addresses${NC}"
 
 echo "${GREEN}\n##########################################################################################${NC}"
 echo "${GREEN}##########################################################################################${NC}\n"
