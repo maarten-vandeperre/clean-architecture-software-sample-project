@@ -1,4 +1,0 @@
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.15-1.1682053058
-
-COPY /target/microservice-person-configuration-1.0.0-SNAPSHOT-runner.jar /app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
